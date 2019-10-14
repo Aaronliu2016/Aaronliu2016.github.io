@@ -1,21 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Hello World</title>
-    <url>/2019/10/14/hello-world/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+    <title>Goole Earth Engine研究报告</title>
+    <url>/2019/10/14/blog/</url>
+    <content><![CDATA[<p>目前，超级计算机和高性能计算系统逐渐性能过剩，大量级的云计算以商品的形式变得触手可及。与此同时，来自NASA、 U.S. Geological Survey 和NOAA等多个美国政府机构和European Space Agency的PB级别存档遥感数据已免费对外提供，相应的地理信息数据大量级处理技术（如TerraLib、Hadoop、GeoSpark和GeoMesa）也日臻成熟。但是要充分利用这些海量数据资源仍然有相当高的技术要求。其中一个主要障碍就是基础的IT管理：数据的获取和存储；解析模糊文件格式；管理数据库、机器分布、任务及队列、CPUs、GPU、网络；地理信息数据处理框架等等；这就导致了很多研究者难以触及这些大数据处理工具，从而限制了研究人员对于海量遥感数据的研究。</p>
+<p>针对以上问题，Google Earth Engine（GEE）应运而生。由谷歌、卡内基梅隆大学和美国地质调查局联合开发的GEE是目前世界上先进的PB级地理数据科学分析及可视化平台。GEE面向用户提供海量卫星影像数据集与地理数据集，包括40多年历史卫星影像数据与欧空局的卫星影像数据。同时，GEE提供基于JavaScript和Python语言的API接口、分析算法与工具，方便用户实现大型数据的处理分析与信息挖掘。</p>
+<a id="more"></a>
+<h3 id="Google-Earth-Engine简介"><a href="#Google-Earth-Engine简介" class="headerlink" title="Google Earth Engine简介"></a>Google Earth Engine简介</h3><p>GEE提供了多个类别PB级的可供分析的数据以及高性能并行计算服务，二者均可通过API获取及控制，并且GEE集成了基于Web的IDE（Interactive Development Environment）使得快速原型实现和结果可视化成为可能。<br>GEE的数据库保存了大量的公共地理信息数据，包括各类卫星、航拍得到的光学和非光学波长的观测数据、环境变化、天气和气候的预报及后判、地形数据、社会经济学数据等等。所有这些数据都是经过一定预处理且保证不丢失相关信息的可直接使用形式（ready-to-use but information-preserving）。<br>用户可以使用和分析来自公共目录下的数据，也可以通过API调用数据库操作器来添加自己的私人数据库。该操作器是集成到大型并行处理系统的，能够自动划分算力，提供高通量的分析能力。用户既可以通过一个体量很小的Client Library，也可以通过在该Client Library基础上构建的交互开发环境来直接调用这些API。</p>
+<h3 id="Google-Earth-Engine数据目录"><a href="#Google-Earth-Engine数据目录" class="headerlink" title="Google Earth Engine数据目录"></a>Google Earth Engine数据目录</h3><p>GEE公共数据目录是一个多维度PB级地理信息数据集。主要包括来自Landsat、Sentinel-1、Sentinel-2的地球观测遥感完整存档数据，以及诸如气候、地表覆盖数据等其他环境、地理信息和社会经济学数据（如表 1所示）。数据量还在以每天近6000 scenes（时延约24小时）的速度持续增加和更新。用户可以直接使用这些公共目录下的数据，也可以通过REST交互界面上传自己的私人数据且可以自由选择是否共享给他人。<br>Earth Engine在一个轻量级的“图像”容器中使用基于2D网络栅格波段的简单且高度通用的数据模型。单一谱段的像素点需在数据类型、分辨率和投影上保持一致，但是图像可以包含任意数量的谱段且一幅图中的谱段不需要有统一的数据类型和投影。每幅图也具有相关键值对的元数据来存储诸如图像的拍摄位置、拍摄时间和条件等信息。<br>相关的图像，比如同一个Sensor产出的数据分成一组，构成一个数据集。数据集的高速筛选和分类能力使得用户可以轻松地在数以百万计的图像中搜索和选择满足特定区域、时间和其他标准的数据。<br>导入Earth Engine的数据都会经过预处理以达到快速并有效查询使用的目标。首先，图片按照原有的投射和分辨率切成瓦片存储到高效且备份的瓦片数据库中。每幅瓦片尺寸为256×256，这是在载入不需要的数据和预加载额外请求数据之间采取的折衷方案。与传统的“data cube”系统不同，这种数据摄入处理能够做到不丢失数据信息：数据仍然保持其原有的投影、分辨率和bit位，从而避免了数据在重采样到一个固定网格下而产生解构导致可能会不适用于特定的应用。<br>另外，为了在计算开发过程中能够快速可视化，每幅图都会对应有降低分辨率的瓦片图组成的金字塔模型存储在对应瓦片图数据库中。金字塔中的每一层都是通过对上一层以1/2的比例进行缩减像素采样（向下采样）得来的。在向下采样时，连续值谱段通常采取平均采样模式，而对离散值谱段（例如分类标签）使用最小、模式化、最大或固定采样模式中的一种进行采样。当只需要一幅图的一部分数据在降低分辨率下计算时，只有最合适的金字塔层级下相关的瓦片图才会从数据库中被调取出来供使用。这种指数级缩量方式使得数据能够在不同量级都能够使用而又不用耗费大量的存储，同时也能够满足基于web的地图展示。</p>
+<h3 id="Google-earth-Engnie系统架构"><a href="#Google-earth-Engnie系统架构" class="headerlink" title="Google earth Engnie系统架构"></a>Google earth Engnie系统架构</h3><p>Earth Engine是建立在Google data center环境下的一系列技术基础之上的。其中包括Borg集群管理系统、Bigtable、Spanner分布式数据库、Colossus（Google File System的接班者）以及用于并行管道计算的FlumeJava框架。另外，Earth Engine还可以与Google Fusion Tables（一种基于web的数据库，支持带有属性的点、线、多边形等几何类型的数据表）进行互操作。<br>Earth Engine的基本架构如图 3所示。Code Editor和第三方Web Apps可以借助客户端库通过Web REST API来向系统发送交互或批量请求。即时请求通过Front End servers进行处理并向Compute Master发送下一级请求。Compute Master则负责在Compute Servers资源池中进行分布式计算的任务规划。Batch Computation的运行逻辑与此基本一致，只不过是通过FlumeJava框架来管理分布规划。支持这两个计算系统的是一系列的数据服务，包括Asset Database（存有每幅图的元数据并具有高效筛选能力）。前面提到的Borg集群管理软件则负责管理系统的每个组件和每项服务在多用户之间的负载均衡。任何单一用户的请求失败只会导致重新发起查询请求而不会对系统造成其他影响。</p>
+<h3 id="数据分布式处理模型"><a href="#数据分布式处理模型" class="headerlink" title="数据分布式处理模型"></a>数据分布式处理模型</h3><p>Earth Engine库中的功能使用多种内置并行化和数据分布模型来实现高性能。每种模型都针对不同的数据访问模式进行了优化。  </p>
+<ol>
+<li>图像瓦片处理</li>
+</ol>
+<p>在遥感中使用的许多光栅处理操作是局部的：任何特定输出像素的计算仅取决于某个固定距离内的输入像素。比如例如频带数学计算或频谱解混，以及诸如卷积或纹理分析的邻域操作等针对但像素的操作。通过将区域细分为区块并独立地计算每个区域，可以很容易地并行处理这些操作。处理每个输出图块通常需要为每个输入仅检索一个或少量图块。这与金字塔输入和合理的缓存相结合，可以在任何要求的比例或投影中快速计算结果。如前所述，输入会根据需要随时重新投影以匹配投影输出的需求。当然，如果用户确定不希望使用向下采样或重新投影输入，则可以在输入的投影和比例中明确指定计算方式。</p>
+<p>大多数基于图块的操作都是使用两种策略中的一种在Earth Engine中实现的，具体取决于它们的计算成本。 针对成本较高的操作以及一次性计算整个瓦片具有显著优势的操作，会将结果写入瓦片尺寸相匹配的输出缓冲区。 瓦片通常为256×256像素，以匹配输入预处理的瓦片大小。</p>
+<p>对于成本低的单像素运算，是通过在一个可直接相互调用的图表中执行图像处理的界面中按照每次一个像素来进行。这种结果目的是为了充分利用这些操作在Java虚拟机（JVM）环境中执行的优势，该环境具有即时（JIT）编译器，编译器负责提取并编译重复发生的函数调用序列。结果表明，在多数情况下，原始图像操作的任意链式操作都可以像手工编译的代码一样有效地执行。</p>
+<ol start="2">
+<li>空间聚合</li>
+</ol>
+<p>正如某些类别的计算本质上是局部的，其他类别本质上是非局部的，例如区域或全局统计的计算，光栅到矢量的转换，或者采样图像以训练分类器。 这些操作或它们的一部分通常仍然可以并行执行，但计算最终结果需要将许多子结果聚合在一起。 例如，计算整个图像的平均值可以通过细分图像，在每个部分上并行计算和计数，然后对这些部分和计数求和来得到所需结果。</p>
+<p>在Earth Engine中，这些类型的计算使用分散-聚集模型作为分布式进程执行。需要执行聚合的空间区域会被划分为子区域分配给分布式算力资源池中的算力单元以便进行批量求解。 每个算力单元获取或计算所需的输入像素，然后运行所需的累积操作以计算其部分结果。 这些结果将被发送回主计算器进行此计算，该计算将它们组合并将结果转换为最终形式。 例如，当计算平均值时，每个算力单元将计算总和与计数，主运算收集并汇总这些中间结果，并以总和除以总计数得到最终计算结果。</p>
+<ol start="3">
+<li>流式聚合</li>
+</ol>
+<p>处理大型遥感数据集的另一个常见操作是时间序列分析。应用在空间上的相同统计聚合操作也可以应用于计算整个图像堆栈中随着时间变化的像素级变化情况。 这些操作都是通过瓦片组合来实现的。以前述方式使用延迟图像求解并行计算得到每个瓦片的输出。在每个瓦片图内，针对每个像素都会执行聚合操作。来自输入图像集合的像素数据是批量请求的，并且通过单像素聚合器进行一次性“流式传输”。 与输出瓦片相交的所有输入处理完成后，就会在每个像素处都应用最终转换以生成输出结果。</p>
+<p>对于具有小中间状态的聚合（比如计算最小值），该分布模型可以做到快速且有效。但是对于不具有中间状态的聚合来说，可能就会非常耗费内存（比如计算Pearson的相关性，就需要在计算最终结果之前在每个像素上都存储完整的数据序列）。不过，只要瓦片的大小是明显小于完整图像的，那么即使是非常大的数据集合，流式传输仍然可以做到非常快。例如，对于Lansat5、7、8的完整数据集堆栈，包含超过500万张图片，在任意一点都只有少于2000张瓦片的深度，平均来看其实只有500张的深度。</p>
+<ol start="4">
+<li>缓存以及常见的子表达式消除</li>
+</ol>
+<p>Earth Engine中的许多处理操作的成本和数据密集度都非常高，因此避免冗余计算将回事非常有价值的。例如，在地图上查看结果的单个用户将触发对输出区块的多个独立请求，所有输出区块经常依赖于一个或多个公共的子表达式，例如大空间聚合或监督分类器的训练等。为了避免重新计算先前已经请求的值，使用子图的散列作为高速缓存键将成本较高的的中间结果存储在分布式的高速缓存中。虽然多个用户可能共享缓存中的项目，但两个独立用户独立地进行相同查询的情况并不常见。但是，单个用户在增量算法开发期间重复相同的查询并因此受益于这种缓存机制就是非常常见的了。在单个查询的分布式执行期间，高速缓存还用作共享存储器的形式，存储对应于查询的子图的中间结果。</p>
+<p>当对相同计算的后续请求到达时，较早的计算可能已经完成或者仍可能正在进行中。在开始成本高昂的操作之前，会优先去检索缓存并返回之前计算的结果。为了处理早期计算仍在进行中的情况，所有计算都是通过少量计算主服务器发送给分布式算力单元的。这些服务器会在任何给定时刻跟踪群集中正在执行的计算。当新查询到达时，如果它依赖于某些正在进行的计算，该查询将会直接加入原始查询序列中去以等待计算完成。如果计算主机出现失败，则正在进行的计算的处理可能会丢失，这种情况下可能会允许启动冗余计算，但前提是在现有计算任务完成之前就重新请求查询。</p>
+<h3 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h3><p>Earth Engine正广泛应用于各个领域，涵盖全球森林变化，全球地表水变化、作物产量估算、稻田制图、城市测绘、洪水测绘、火灾恢复和疟疾风险绘图等等不同主题。它还被整合到许多第三方应用中，例如分析物种栖息地范围（Map of Life）、监测气候（Climate Engine）和评估土地利用变化（Collect Earth）等等。Google Earth Engine从项目创立至今，主要面向的用户为世界各地与地理信息研究相关的院校、研究机构和科研人员。</p>
 ]]></content>
+      <tags>
+        <tag>google earth engine</tag>
+        <tag>学习</tag>
+        <tag>教程</tag>
+      </tags>
   </entry>
 </search>
