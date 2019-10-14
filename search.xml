@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Goole Earth Engine研究报告</title>
+    <title>Google Earth Engine研究报告</title>
     <url>/2019/10/14/blog/</url>
     <content><![CDATA[<p>目前，超级计算机和高性能计算系统逐渐性能过剩，大量级的云计算以商品的形式变得触手可及。与此同时，来自NASA、 U.S. Geological Survey 和NOAA等多个美国政府机构和European Space Agency的PB级别存档遥感数据已免费对外提供，相应的地理信息数据大量级处理技术（如TerraLib、Hadoop、GeoSpark和GeoMesa）也日臻成熟。但是要充分利用这些海量数据资源仍然有相当高的技术要求。其中一个主要障碍就是基础的IT管理：数据的获取和存储；解析模糊文件格式；管理数据库、机器分布、任务及队列、CPUs、GPU、网络；地理信息数据处理框架等等；这就导致了很多研究者难以触及这些大数据处理工具，从而限制了研究人员对于海量遥感数据的研究。</p>
 <p>针对以上问题，Google Earth Engine（GEE）应运而生。由谷歌、卡内基梅隆大学和美国地质调查局联合开发的GEE是目前世界上先进的PB级地理数据科学分析及可视化平台。GEE面向用户提供海量卫星影像数据集与地理数据集，包括40多年历史卫星影像数据与欧空局的卫星影像数据。同时，GEE提供基于JavaScript和Python语言的API接口、分析算法与工具，方便用户实现大型数据的处理分析与信息挖掘。</p>
