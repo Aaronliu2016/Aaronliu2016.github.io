@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>AaronTalk</title>
+  
+  <subtitle>Aaron&#39;s Blog</subtitle>
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="https://aarontalk.com/"/>
+  <updated>2019-10-15T02:28:27.244Z</updated>
+  <id>https://aarontalk.com/</id>
+  
+  <author>
+    <name>Aaron Liu</name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Google Earth Engine研究报告</title>
+    <link href="https://aarontalk.com/2019/10/14/Google%20Earth%20Engine%E7%A0%94%E7%A9%B6%E6%8A%A5%E5%91%8A/"/>
+    <id>https://aarontalk.com/2019/10/14/Google Earth Engine研究报告/</id>
+    <published>2019-10-14T14:15:50.000Z</published>
+    <updated>2019-10-15T02:28:27.244Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;目前，超级计算机和高性能计算系统逐渐性能过剩，大量级的云计算以商品的形式变得触手可及。与此同时，来自NASA、 U.S. Geological Survey 和NOAA等多个美国政府机构和European Space Agency的PB级别存档遥感数据已免费对外提供，相应的地理信息数据大量级处理技术（如TerraLib、Hadoop、GeoSpark和GeoMesa）也日臻成熟。但是要充分利用这些海量数据资源仍然有相当高的技术要求。其中一个主要障碍就是基础的IT管理：数据的获取和存储；解析模糊文件格式；管理数据库、机器分布、任务及队列、CPUs、GPU、网络；地理信息数据处理框架等等；这就导致了很多研究者难以触及这些大数据处理工具，从而限制了研究人员对于海量遥感数据的研究。&lt;/p&gt;
+    
+    </summary>
+    
+    
+    
+      <category term="google earth engine" scheme="https://aarontalk.com/tags/google-earth-engine/"/>
+    
+      <category term="学习" scheme="https://aarontalk.com/tags/%E5%AD%A6%E4%B9%A0/"/>
+    
+      <category term="教程" scheme="https://aarontalk.com/tags/%E6%95%99%E7%A8%8B/"/>
+    
+  </entry>
+  
+</feed>
