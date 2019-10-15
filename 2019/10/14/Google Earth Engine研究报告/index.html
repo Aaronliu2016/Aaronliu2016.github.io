@@ -1,9 +1,324 @@
-<?xml version="1.0" encoding="utf-8"?>
-<search>
-  <entry>
-    <title>Google Earth Engine研究报告</title>
-    <url>/2019/10/14/Google%20Earth%20Engine%E7%A0%94%E7%A9%B6%E6%8A%A5%E5%91%8A/</url>
-    <content><![CDATA[<p>目前，超级计算机和高性能计算系统逐渐性能过剩，大量级的云计算以商品的形式变得触手可及。与此同时，来自NASA、 U.S. Geological Survey 和NOAA等多个美国政府机构和European Space Agency的PB级别存档遥感数据已免费对外提供，相应的地理信息数据大量级处理技术（如TerraLib、Hadoop、GeoSpark和GeoMesa）也日臻成熟。但是要充分利用这些海量数据资源仍然有相当高的技术要求。其中一个主要障碍就是基础的IT管理：数据的获取和存储；解析模糊文件格式；管理数据库、机器分布、任务及队列、CPUs、GPU、网络；地理信息数据处理框架等等；这就导致了很多研究者难以触及这些大数据处理工具，从而限制了研究人员对于海量遥感数据的研究。</p>
+<!DOCTYPE html>
+
+
+
+
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.4.1">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.4.1">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.4.1">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.4.1" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.4.1">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.4.1',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":true},
+    bookmark: {"enable":true,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: true,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":5,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="目前，超级计算机和高性能计算系统逐渐性能过剩，大量级的云计算以商品的形式变得触手可及。与此同时，来自NASA、 U.S. Geological Survey 和NOAA等多个美国政府机构和European Space Agency的PB级别存档遥感数据已免费对外提供，相应的地理信息数据大量级处理技术（如TerraLib、Hadoop、GeoSpark和GeoMesa）也日臻成熟。但是要充分利用这些">
+<meta name="keywords" content="google earth engine,学习,教程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Google Earth Engine研究报告">
+<meta property="og:url" content="http://aarontalk.com/2019/10/14/Google Earth Engine研究报告/index.html">
+<meta property="og:site_name" content="AaronTalk">
+<meta property="og:description" content="目前，超级计算机和高性能计算系统逐渐性能过剩，大量级的云计算以商品的形式变得触手可及。与此同时，来自NASA、 U.S. Geological Survey 和NOAA等多个美国政府机构和European Space Agency的PB级别存档遥感数据已免费对外提供，相应的地理信息数据大量级处理技术（如TerraLib、Hadoop、GeoSpark和GeoMesa）也日臻成熟。但是要充分利用这些">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://aarontalk.com/2019/10/14/Google%20Earth%20Engine研究报告/IDE.jpg">
+<meta property="og:image" content="http://aarontalk.com/2019/10/14/Google%20Earth%20Engine研究报告/1571105424921.png">
+<meta property="og:image" content="http://aarontalk.com/2019/10/14/Google%20Earth%20Engine研究报告/1571105566769.png">
+<meta property="og:image" content="http://aarontalk.com/2019/10/14/Google%20Earth%20Engine研究报告/1571105584534.png">
+<meta property="og:updated_time" content="2019-10-15T02:28:27.244Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Google Earth Engine研究报告">
+<meta name="twitter:description" content="目前，超级计算机和高性能计算系统逐渐性能过剩，大量级的云计算以商品的形式变得触手可及。与此同时，来自NASA、 U.S. Geological Survey 和NOAA等多个美国政府机构和European Space Agency的PB级别存档遥感数据已免费对外提供，相应的地理信息数据大量级处理技术（如TerraLib、Hadoop、GeoSpark和GeoMesa）也日臻成熟。但是要充分利用这些">
+<meta name="twitter:image" content="http://aarontalk.com/2019/10/14/Google%20Earth%20Engine研究报告/IDE.jpg">
+  <link rel="canonical" href="http://aarontalk.com/2019/10/14/Google Earth Engine研究报告/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>Google Earth Engine研究报告 | AaronTalk</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">AaronTalk</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">Aaron's Blog</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+        
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+      
+    
+      
+      
+        
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+      
+    
+      
+      
+        
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+      
+    
+      
+      
+        
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+      
+    
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger">
+          <i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+    
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://aarontalk.com/2019/10/14/Google Earth Engine研究报告/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Aaron Liu">
+      <meta itemprop="description" content="关注科技，关注生活。<br> 以干净体面的方式实现各项自由。">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="AaronTalk">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            Google Earth Engine研究报告
+            
+
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2019-10-14 22:15:50" itemprop="dateCreated datePublished" datetime="2019-10-14T22:15:50+08:00">2019-10-14</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-10-15 10:28:27" itemprop="dateModified" datetime="2019-10-15T10:28:27+08:00">2019-10-15</time>
+              </span>
+            
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>目前，超级计算机和高性能计算系统逐渐性能过剩，大量级的云计算以商品的形式变得触手可及。与此同时，来自NASA、 U.S. Geological Survey 和NOAA等多个美国政府机构和European Space Agency的PB级别存档遥感数据已免费对外提供，相应的地理信息数据大量级处理技术（如TerraLib、Hadoop、GeoSpark和GeoMesa）也日臻成熟。但是要充分利用这些海量数据资源仍然有相当高的技术要求。其中一个主要障碍就是基础的IT管理：数据的获取和存储；解析模糊文件格式；管理数据库、机器分布、任务及队列、CPUs、GPU、网络；地理信息数据处理框架等等；这就导致了很多研究者难以触及这些大数据处理工具，从而限制了研究人员对于海量遥感数据的研究。</p>
 <a id="more"></a>
 
 <p>针对以上问题，Google Earth Engine（GEE）应运而生。由谷歌、卡内基梅隆大学和美国地质调查局联合开发的GEE是目前世界上先进的PB级地理数据科学分析及可视化平台。GEE面向用户提供海量卫星影像数据集与地理数据集，包括40多年历史卫星影像数据与欧空局的卫星影像数据。同时，GEE提供基于JavaScript和Python语言的API接口、分析算法与工具，方便用户实现大型数据的处理分析与信息挖掘。</p>
@@ -807,11 +1122,224 @@
 <h4 id="缓存以及常见的子表达式消除"><a href="#缓存以及常见的子表达式消除" class="headerlink" title="缓存以及常见的子表达式消除"></a>缓存以及常见的子表达式消除</h4><p>Earth Engine中的许多处理操作的成本和数据密集度都非常高，因此避免冗余计算将回事非常有价值的。例如，在地图上查看结果的单个用户将触发对输出区块的多个独立请求，所有输出区块经常依赖于一个或多个公共的子表达式，例如大空间聚合或监督分类器的训练等。为了避免重新计算先前已经请求的值，使用子图的散列作为高速缓存键将成本较高的的中间结果存储在分布式的高速缓存中。虽然多个用户可能共享缓存中的项目，但两个独立用户独立地进行相同查询的情况并不常见。但是，单个用户在增量算法开发期间重复相同的查询并因此受益于这种缓存机制就是非常常见的了。在单个查询的分布式执行期间，高速缓存还用作共享存储器的形式，存储对应于查询的子图的中间结果。</p>
 <p>当对相同计算的后续请求到达时，较早的计算可能已经完成或者仍可能正在进行中。在开始成本高昂的操作之前，会优先去检索缓存并返回之前计算的结果。为了处理早期计算仍在进行中的情况，所有计算都是通过少量计算主服务器发送给分布式算力单元的。这些服务器会在任何给定时刻跟踪群集中正在执行的计算。当新查询到达时，如果它依赖于某些正在进行的计算，该查询将会直接加入原始查询序列中去以等待计算完成。如果计算主机出现失败，则正在进行的计算的处理可能会丢失，这种情况下可能会允许启动冗余计算，但前提是在现有计算任务完成之前就重新请求查询。</p>
 <h3 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h3><p>Earth Engine正广泛应用于各个领域，涵盖全球森林变化，全球地表水变化、作物产量估算、稻田制图、城市测绘、洪水测绘、火灾恢复和疟疾风险绘图等等不同主题。它还被整合到许多第三方应用中，例如分析物种栖息地范围（Map of Life）、监测气候（Climate Engine）和评估土地利用变化（Collect Earth）等等。Google Earth Engine从项目创立至今，主要面向的用户为世界各地与地理信息研究相关的院校、研究机构和科研人员。</p>
-]]></content>
-      <tags>
-        <tag>google earth engine</tag>
-        <tag>学习</tag>
-        <tag>教程</tag>
-      </tags>
-  </entry>
-</search>
+
+    </div>
+
+    
+    
+    
+        
+      
+
+      <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/google-earth-engine/" rel="tag"># google earth engine</a>
+            
+              <a href="/tags/学习/" rel="tag"># 学习</a>
+            
+              <a href="/tags/教程/" rel="tag"># 教程</a>
+            
+          </div>
+        
+
+        
+
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+        
+        
+        
+        
+      
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据目录"><span class="nav-number">2.</span> <span class="nav-text">数据目录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#系统架构"><span class="nav-number">3.</span> <span class="nav-text">系统架构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据分布式处理模型"><span class="nav-number">4.</span> <span class="nav-text">数据分布式处理模型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#图像瓦片处理"><span class="nav-number">4.1.</span> <span class="nav-text">图像瓦片处理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#空间聚合"><span class="nav-number">4.2.</span> <span class="nav-text">空间聚合</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#流式聚合"><span class="nav-number">4.3.</span> <span class="nav-text">流式聚合</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#缓存以及常见的子表达式消除"><span class="nav-number">4.4.</span> <span class="nav-text">缓存以及常见的子表达式消除</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#应用"><span class="nav-number">5.</span> <span class="nav-text">应用</span></a></li></ol></div>
+        
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Aaron Liu</p>
+  <div class="site-description" itemprop="description">关注科技，关注生活。<br> 以干净体面的方式实现各项自由。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">1</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
+      </div>
+    
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://github.com/Aaronliu2016" title="GitHub &rarr; https://github.com/Aaronliu2016" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="//weibo.com/aaronliutalk" title="Weibo &rarr; //weibo.com/aaronliutalk"><i class="fa fa-fw fa-weibo"></i>Weibo</a>
+      </span>
+    
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Aaron Liu</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">
+      
+    主题 – <a href="https://pisces.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.4.1
+  </div>
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js?v=3.1.0"></script>
+  <script src="//cdn.jsdelivr.net/npm/pangu@4/dist/browser/pangu.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+<script src="/js/utils.js?v=7.4.1"></script><script src="/js/motion.js?v=7.4.1"></script>
+<script src="/js/schemes/pisces.js?v=7.4.1"></script>
+<script src="/js/next-boot.js?v=7.4.1"></script><script src="/js/bookmark.js?v=7.4.1"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.4.1"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>
