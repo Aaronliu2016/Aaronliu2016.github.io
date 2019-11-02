@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://aarontalk.com/"/>
-  <updated>2019-10-15T11:21:30.909Z</updated>
+  <updated>2019-11-02T14:13:37.895Z</updated>
   <id>https://aarontalk.com/</id>
   
   <author>
@@ -17,11 +17,38 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>Python接收UDP组播</title>
+    <link href="https://aarontalk.com/2019/11/02/PythonUDPReceiver/"/>
+    <id>https://aarontalk.com/2019/11/02/PythonUDPReceiver/</id>
+    <published>2019-11-02T13:56:50.000Z</published>
+    <updated>2019-11-02T14:13:37.895Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;UDP 全称 &lt;em&gt;User Datagram Protocol（ 用户数据报协议 ）&lt;/em&gt;，是 Internet 的传输层两个主要协议之一，相对于另外一个协议TCP而言，UDP是一种无需建立连接就可以发送封装的 IP 数据包的方法，但不是完全可靠的，丢包什么的都不管，在牺牲一定传输完整性保障的基础上，保证了传输性能；&lt;/p&gt;
+&lt;p&gt;UDP 组播是其发送数据的方法之一，特点就是发送端可以将消息发送到特定播组内，接收端只要处于该播组就可以接收到该消息；&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;那么用Python编程时，应该怎么接入UDP的组播呢？&lt;/strong&gt; &lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="学习笔记" scheme="https://aarontalk.com/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+    
+      <category term="Python" scheme="https://aarontalk.com/tags/Python/"/>
+    
+      <category term="UDP组播" scheme="https://aarontalk.com/tags/UDP%E7%BB%84%E6%92%AD/"/>
+    
+      <category term="学习笔记" scheme="https://aarontalk.com/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Google Earth Engine research</title>
     <link href="https://aarontalk.com/2019/10/14/geeresearch/"/>
     <id>https://aarontalk.com/2019/10/14/geeresearch/</id>
     <published>2019-10-14T14:15:50.000Z</published>
-    <updated>2019-10-15T11:21:30.909Z</updated>
+    <updated>2019-11-02T14:14:58.652Z</updated>
     
     <summary type="html">
     
@@ -30,6 +57,10 @@
     </summary>
     
     
+      <category term="学习笔记" scheme="https://aarontalk.com/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+    
+      <category term="Google earth engine" scheme="https://aarontalk.com/tags/Google-earth-engine/"/>
     
   </entry>
   
