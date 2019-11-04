@@ -104,69 +104,425 @@
 
 <h3 id="数据目录"><a href="#数据目录" class="headerlink" title="数据目录"></a>数据目录</h3><p>Google Earth Engine公共数据目录是一个多维度PB级地理信息数据集。主要包括来自Landsat、Sentinel-1、Sentinel-2的地球观测遥感完整存档数据，以及诸如气候、地表覆盖数据等其他环境、地理信息和社会经济学数据（如表 1所示）。数据量还在以每天近6000 scenes（时延约24小时）的速度持续增加和更新。用户可以直接使用这些公共目录下的数据，也可以通过REST交互界面上传自己的私人数据且可以自由选择是否共享给他人。</p>
 <center>Google earth engine 常用数据目录</center>
-| **Dataset**                               | **Nominal   resolution** | **Temporal   granularity** | **Temporal   coverage** | **Spatial   coverage** |
-| ----------------------------------------- | ------------------------ | -------------------------- | ----------------------- | ---------------------- |
-| Landsat                                   |                          |                            |                         |                        |
-| **Landsat  8 OLI/TIRS**                   | 30 m                     | 16 day                     | 2013–Now                | Global                 |
-| **Landsat  7 ETM +**                      | 30 m                     | 16 day                     | 2000–Now                | Global                 |
-| **Landsat  5 TM**                         | 30 m                     | 16 day                     | 1984–2012               | Global                 |
-| **Landsat  4–8 surface reflectance**      | 30 m                     | 16 day                     | 1984–Now                | Global                 |
-| Sentinel                                  |                          |                            |                         |                        |
-| **Sentinel  1 A/B ground range detected** | 10 m                     | 6 day                      | 2014–Now                | Global                 |
-| **Sentinel  2A MSI**                      | 10/20 m                  | 10 day                     | 2015–Now                | Global                 |
-| MODIS                                     |                          |                            |                         |                        |
-| **MOD08  atmosphere**                     | 1°                       | Daily                      | 2000–Now                | Global                 |
-| **MOD09  surface reflectance**            | 500 m                    | 1 day/8 day                | 2000–Now                | Global                 |
-| **MOD10  snow cover**                     | 500 m                    | 1 day                      | 2000–Now                | Global                 |
-| **MOD11  temperature and emissivity**     | 1000 m                   | 1 day/8 day                | 2000–Now                | Global                 |
-| **MCD12  Land cover**                     | 500 m                    | Annual                     | 2000–Now                | Global                 |
-| **MOD13  Vegetation indices**             | 500/250 m                | 16 day                     | 2000–Now                | Global                 |
-| **MOD14  Thermal anomalies & fire**       | 1000 m                   | 8 day                      | 2000–Now                | Global                 |
-| **MCD15  Leaf area index/FPAR**           | 500 m                    | 4 day                      | 2000–Now                | Global                 |
-| **MOD17  Gross primary productivity**     | 500 m                    | 8 day                      | 2000–Now                | Global                 |
-| **MCD43  BRDF-adjusted reflectance**      | 1000/500 m               | 8 day/16 day               | 2000–Now                | Global                 |
-| **MOD44  veg. cover conversion**          | 250 m                    | Annual                     | 2000–Now                | Global                 |
-| **MCD45  thermal anomalies and fire**     | 500 m                    | 30 day                     | 2000–Now                | Global                 |
-| ASTER                                     |                          |                            |                         |                        |
-| **L1 T  radiance**                        | 15/30/90 m               | 1 day                      | 2000–Now                | Global                 |
-| **Global  emissivity**                    | 100 m                    | Once                       | 2000–2010               | Global                 |
-| Other imagery                             |                          |                            |                         |                        |
-| **PROBA-V  top of canopy reflectance**    | 100/300 m                | 2 day                      | 2013–Now                | Global                 |
-| **EO-1  hyperion hyperspectral radiance** | 30 m                     | Targeted                   | 2001–Now                | Global                 |
-| **DMSP-OLS  nighttime lights**            | 1 km                     | Annual                     | 1992–2013               | Global                 |
-| **USDA NAIP  aerial imagery**             | 1 m                      | Sub-annual                 | 2003–2015               | CONUS                  |
-| Topography                                |                          |                            |                         |                        |
-| **Shuttle  Radar Topography Mission**     | 30 m                     | Single                     | 2000                    | 60°N–54°S              |
-| **USGS  National Elevation Dataset**      | 10 m                     | Single                     | Multiple                | United States          |
-| **USGS  GMTED2010**                       | 7.5″                     | Single                     | Multiple                | 83°N–57°S              |
-| **GTOPO30**                               | 30″                      | Single                     | Multiple                | Global                 |
-| **ETOPO1**                                | 1′                       | Single                     | Multiple                | Global                 |
-| Landcover                                 |                          |                            |                         |                        |
-| **GlobCover**                             | 300 m                    | Non-periodic               | 2009                    | 90°N–65°S              |
-| **USGS  National Landcover Database**     | 30 m                     | Non-periodic               | 1992–2011               | CONUS                  |
-| **UMD  global forest change**             | 30 m                     | Annual                     | 2000–2014               | 80°N–57°S              |
-| **JRC  global surface water**             | 30 m                     | Monthly                    | 1984–2015               | 78°N–60°S              |
-| **GLCF  tree cover**                      | 30 m                     | 5 year                     | 2000–2010               | Global                 |
-| **USDA  NASS cropland data layer**        | 30 m                     | Annual                     | 1997–2015               | CONUS                  |
-| Weather,  precipitation & atmosphere      |                          |                            |                         |                        |
-| **Global  precipitation measurement**     | 6′                       | 3 h                        | 2014–Now                | Global                 |
-| **TRMM  3B42 precipitation**              | 15′                      | 3 h                        | 1998–2015               | 50°N–50°S              |
-| **CHIRPS  precipitation**                 | 3′                       | 5 day                      | 1981–Now                | 50°N–50°S              |
-| **NLDAS-2**                               | 7.5′                     | 1 h                        | 1979–Now                | North America          |
-| **GLDAS-2**                               | 15′                      | 3 h                        | 1948–2010               | Global                 |
-| **NCEP  reanalysis**                      | 2.5°                     | 6 h                        | 1948–Now                | Global                 |
-| **ORNL  DAYMET weather**                  | 1 km                     | Annual                     | 1980–Now                | North America          |
-| **GRIDMET**                               | 4 km                     | 1 day                      | 1979–Now                | CONUS                  |
-| **NCEP  global forecast system**          | 15′                      | 6 h                        | 2015–Now                | Global                 |
-| **NCEP  climate forecast system**         | 12′                      | 6 h                        | 1979–Now                | Global                 |
-| **WorldClim**                             | 30″                      | 12 images                  | 1960–1990               | Global                 |
-| **NEX  downscaled climate projections**   | 1 km                     | 1 day                      | 1950–2099               | North America          |
-| Population                                |                          |                            |                         |                        |
-| **WorldPop**                              | 100 m                    | 5 year                     | Multiple                | 2010–2015              |
-| **GPWv4**                                 | 30″                      | 5 year                     | 2000–2020               | 85°N–60°S              |
 
 
-
+<table>
+<thead>
+<tr>
+<th><strong>Dataset</strong></th>
+<th><strong>Nominal   resolution</strong></th>
+<th align="center"><strong>Temporal   granularity</strong></th>
+<th><strong>Temporal   coverage</strong></th>
+<th><strong>Spatial   coverage</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Landsat</td>
+<td></td>
+<td align="center"></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><strong>Landsat  8 OLI/TIRS</strong></td>
+<td>30 m</td>
+<td align="center">16 day</td>
+<td>2013–Now</td>
+<td>Global</td>
+</tr>
+<tr>
+<td><strong>Landsat  7 ETM +</strong></td>
+<td>30 m</td>
+<td align="center">16 day</td>
+<td>2000–Now</td>
+<td>Global</td>
+</tr>
+<tr>
+<td><strong>Landsat  5 TM</strong></td>
+<td>30 m</td>
+<td align="center">16 day</td>
+<td>1984–2012</td>
+<td>Global</td>
+</tr>
+<tr>
+<td><strong>Landsat  4–8 surface reflectance</strong></td>
+<td>30 m</td>
+<td align="center">16 day</td>
+<td>1984–Now</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Sentinel</td>
+<td></td>
+<td align="center"></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><strong>Sentinel  1 A/B ground range detected</strong></td>
+<td>10 m</td>
+<td align="center">6 day</td>
+<td>2014–Now</td>
+<td>Global</td>
+</tr>
+<tr>
+<td><strong>Sentinel  2A MSI</strong></td>
+<td>10/20 m</td>
+<td align="center">10 day</td>
+<td>2015–Now</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>MODIS</td>
+<td></td>
+<td align="center"></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><strong>MOD08  atmosphere</strong></td>
+<td>1°</td>
+<td align="center">Daily</td>
+<td>2000–Now</td>
+<td>Global</td>
+</tr>
+<tr>
+<td><strong>MOD09  surface reflectance</strong></td>
+<td>500 m</td>
+<td align="center">1 day/8 day</td>
+<td>2000–Now</td>
+<td>Global</td>
+</tr>
+<tr>
+<td><strong>MOD10  snow cover</strong></td>
+<td>500 m</td>
+<td align="center">1 day</td>
+<td>2000–Now</td>
+<td>Global</td>
+</tr>
+<tr>
+<td><strong>MOD11  temperature and emissivity</strong></td>
+<td>1000 m</td>
+<td align="center">1 day/8 day</td>
+<td>2000–Now</td>
+<td>Global</td>
+</tr>
+<tr>
+<td><strong>MCD12  Land cover</strong></td>
+<td>500 m</td>
+<td align="center">Annual</td>
+<td>2000–Now</td>
+<td>Global</td>
+</tr>
+<tr>
+<td><strong>MOD13  Vegetation indices</strong></td>
+<td>500/250 m</td>
+<td align="center">16 day</td>
+<td>2000–Now</td>
+<td>Global</td>
+</tr>
+<tr>
+<td><strong>MOD14  Thermal anomalies &amp; fire</strong></td>
+<td>1000 m</td>
+<td align="center">8 day</td>
+<td>2000–Now</td>
+<td>Global</td>
+</tr>
+<tr>
+<td><strong>MCD15  Leaf area index/FPAR</strong></td>
+<td>500 m</td>
+<td align="center">4 day</td>
+<td>2000–Now</td>
+<td>Global</td>
+</tr>
+<tr>
+<td><strong>MOD17  Gross primary productivity</strong></td>
+<td>500 m</td>
+<td align="center">8 day</td>
+<td>2000–Now</td>
+<td>Global</td>
+</tr>
+<tr>
+<td><strong>MCD43  BRDF-adjusted reflectance</strong></td>
+<td>1000/500 m</td>
+<td align="center">8 day/16 day</td>
+<td>2000–Now</td>
+<td>Global</td>
+</tr>
+<tr>
+<td><strong>MOD44  veg. cover conversion</strong></td>
+<td>250 m</td>
+<td align="center">Annual</td>
+<td>2000–Now</td>
+<td>Global</td>
+</tr>
+<tr>
+<td><strong>MCD45  thermal anomalies and fire</strong></td>
+<td>500 m</td>
+<td align="center">30 day</td>
+<td>2000–Now</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>ASTER</td>
+<td></td>
+<td align="center"></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><strong>L1 T  radiance</strong></td>
+<td>15/30/90 m</td>
+<td align="center">1 day</td>
+<td>2000–Now</td>
+<td>Global</td>
+</tr>
+<tr>
+<td><strong>Global  emissivity</strong></td>
+<td>100 m</td>
+<td align="center">Once</td>
+<td>2000–2010</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Other imagery</td>
+<td></td>
+<td align="center"></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><strong>PROBA-V  top of canopy reflectance</strong></td>
+<td>100/300 m</td>
+<td align="center">2 day</td>
+<td>2013–Now</td>
+<td>Global</td>
+</tr>
+<tr>
+<td><strong>EO-1  hyperion hyperspectral radiance</strong></td>
+<td>30 m</td>
+<td align="center">Targeted</td>
+<td>2001–Now</td>
+<td>Global</td>
+</tr>
+<tr>
+<td><strong>DMSP-OLS  nighttime lights</strong></td>
+<td>1 km</td>
+<td align="center">Annual</td>
+<td>1992–2013</td>
+<td>Global</td>
+</tr>
+<tr>
+<td><strong>USDA NAIP  aerial imagery</strong></td>
+<td>1 m</td>
+<td align="center">Sub-annual</td>
+<td>2003–2015</td>
+<td>CONUS</td>
+</tr>
+<tr>
+<td>Topography</td>
+<td></td>
+<td align="center"></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><strong>Shuttle  Radar Topography Mission</strong></td>
+<td>30 m</td>
+<td align="center">Single</td>
+<td>2000</td>
+<td>60°N–54°S</td>
+</tr>
+<tr>
+<td><strong>USGS  National Elevation Dataset</strong></td>
+<td>10 m</td>
+<td align="center">Single</td>
+<td>Multiple</td>
+<td>United States</td>
+</tr>
+<tr>
+<td><strong>USGS  GMTED2010</strong></td>
+<td>7.5″</td>
+<td align="center">Single</td>
+<td>Multiple</td>
+<td>83°N–57°S</td>
+</tr>
+<tr>
+<td><strong>GTOPO30</strong></td>
+<td>30″</td>
+<td align="center">Single</td>
+<td>Multiple</td>
+<td>Global</td>
+</tr>
+<tr>
+<td><strong>ETOPO1</strong></td>
+<td>1′</td>
+<td align="center">Single</td>
+<td>Multiple</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Landcover</td>
+<td></td>
+<td align="center"></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><strong>GlobCover</strong></td>
+<td>300 m</td>
+<td align="center">Non-periodic</td>
+<td>2009</td>
+<td>90°N–65°S</td>
+</tr>
+<tr>
+<td><strong>USGS  National Landcover Database</strong></td>
+<td>30 m</td>
+<td align="center">Non-periodic</td>
+<td>1992–2011</td>
+<td>CONUS</td>
+</tr>
+<tr>
+<td><strong>UMD  global forest change</strong></td>
+<td>30 m</td>
+<td align="center">Annual</td>
+<td>2000–2014</td>
+<td>80°N–57°S</td>
+</tr>
+<tr>
+<td><strong>JRC  global surface water</strong></td>
+<td>30 m</td>
+<td align="center">Monthly</td>
+<td>1984–2015</td>
+<td>78°N–60°S</td>
+</tr>
+<tr>
+<td><strong>GLCF  tree cover</strong></td>
+<td>30 m</td>
+<td align="center">5 year</td>
+<td>2000–2010</td>
+<td>Global</td>
+</tr>
+<tr>
+<td><strong>USDA  NASS cropland data layer</strong></td>
+<td>30 m</td>
+<td align="center">Annual</td>
+<td>1997–2015</td>
+<td>CONUS</td>
+</tr>
+<tr>
+<td>Weather,  precipitation &amp; atmosphere</td>
+<td></td>
+<td align="center"></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><strong>Global  precipitation measurement</strong></td>
+<td>6′</td>
+<td align="center">3 h</td>
+<td>2014–Now</td>
+<td>Global</td>
+</tr>
+<tr>
+<td><strong>TRMM  3B42 precipitation</strong></td>
+<td>15′</td>
+<td align="center">3 h</td>
+<td>1998–2015</td>
+<td>50°N–50°S</td>
+</tr>
+<tr>
+<td><strong>CHIRPS  precipitation</strong></td>
+<td>3′</td>
+<td align="center">5 day</td>
+<td>1981–Now</td>
+<td>50°N–50°S</td>
+</tr>
+<tr>
+<td><strong>NLDAS-2</strong></td>
+<td>7.5′</td>
+<td align="center">1 h</td>
+<td>1979–Now</td>
+<td>North America</td>
+</tr>
+<tr>
+<td><strong>GLDAS-2</strong></td>
+<td>15′</td>
+<td align="center">3 h</td>
+<td>1948–2010</td>
+<td>Global</td>
+</tr>
+<tr>
+<td><strong>NCEP  reanalysis</strong></td>
+<td>2.5°</td>
+<td align="center">6 h</td>
+<td>1948–Now</td>
+<td>Global</td>
+</tr>
+<tr>
+<td><strong>ORNL  DAYMET weather</strong></td>
+<td>1 km</td>
+<td align="center">Annual</td>
+<td>1980–Now</td>
+<td>North America</td>
+</tr>
+<tr>
+<td><strong>GRIDMET</strong></td>
+<td>4 km</td>
+<td align="center">1 day</td>
+<td>1979–Now</td>
+<td>CONUS</td>
+</tr>
+<tr>
+<td><strong>NCEP  global forecast system</strong></td>
+<td>15′</td>
+<td align="center">6 h</td>
+<td>2015–Now</td>
+<td>Global</td>
+</tr>
+<tr>
+<td><strong>NCEP  climate forecast system</strong></td>
+<td>12′</td>
+<td align="center">6 h</td>
+<td>1979–Now</td>
+<td>Global</td>
+</tr>
+<tr>
+<td><strong>WorldClim</strong></td>
+<td>30″</td>
+<td align="center">12 images</td>
+<td>1960–1990</td>
+<td>Global</td>
+</tr>
+<tr>
+<td><strong>NEX  downscaled climate projections</strong></td>
+<td>1 km</td>
+<td align="center">1 day</td>
+<td>1950–2099</td>
+<td>North America</td>
+</tr>
+<tr>
+<td>Population</td>
+<td></td>
+<td align="center"></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><strong>WorldPop</strong></td>
+<td>100 m</td>
+<td align="center">5 year</td>
+<td>Multiple</td>
+<td>2010–2015</td>
+</tr>
+<tr>
+<td><strong>GPWv4</strong></td>
+<td>30″</td>
+<td align="center">5 year</td>
+<td>2000–2020</td>
+<td>85°N–60°S</td>
+</tr>
+</tbody></table>
 <p>Earth Engine运行在一个轻量级的“图像”容器中，使用基于2D网络栅格波段的简单且高度通用的数据模型。单一谱段的像素点需在数据类型、分辨率和投影上保持一致，但是图像可以包含任意数量的谱段且一幅图中的谱段不需要有统一的数据类型和投影。每幅图也具有相关键值对的元数据来存储诸如图像的拍摄位置、拍摄时间和条件等信息。</p>
 <p>相关的图像，比如同一个Sensor产出的数据分成一组，构成一个数据集。数据集的高速筛选和分类能力使得用户可以轻松地在数以百万计的图像中搜索和选择满足特定区域、时间和其他标准的数据。</p>
 <p>导入Earth Engine的数据都会经过预处理以达到快速并有效查询使用的目标。</p>
