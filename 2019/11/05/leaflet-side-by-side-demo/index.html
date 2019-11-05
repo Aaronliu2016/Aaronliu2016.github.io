@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <link rel="alternate" href="/atom.xml" title="AaronTalk" type="application/atom+xml">
+  <meta name="baidu-site-verification" content="eFCwDJGFwU">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.5.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":true},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: true,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":5,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="在上一篇Vue中使用Leaflet加载地图 中我们已经完成了地图的创建和tileLayer的加载，也给出了加载Open Street Map开源地图的Leaflet example，这里紧接上文，咱们来学习一下Leaflet中一个非常实用的插件——Leaflet-side-by-side。">
+<meta name="keywords" content="vue,leaflet">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vue中使用leaflet-side-by-side插件作拉帘对比">
+<meta property="og:url" content="https://aarontalk.com/2019/11/05/leaflet-side-by-side-demo/index.html">
+<meta property="og:site_name" content="AaronTalk">
+<meta property="og:description" content="在上一篇Vue中使用Leaflet加载地图 中我们已经完成了地图的创建和tileLayer的加载，也给出了加载Open Street Map开源地图的Leaflet example，这里紧接上文，咱们来学习一下Leaflet中一个非常实用的插件——Leaflet-side-by-side。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://aarontalk.com/2019/11/05/leaflet-side-by-side-demo/image-20191105203115464.png">
+<meta property="og:updated_time" content="2019-11-05T12:38:27.776Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Vue中使用leaflet-side-by-side插件作拉帘对比">
+<meta name="twitter:description" content="在上一篇Vue中使用Leaflet加载地图 中我们已经完成了地图的创建和tileLayer的加载，也给出了加载Open Street Map开源地图的Leaflet example，这里紧接上文，咱们来学习一下Leaflet中一个非常实用的插件——Leaflet-side-by-side。">
+<meta name="twitter:image" content="https://aarontalk.com/2019/11/05/leaflet-side-by-side-demo/image-20191105203115464.png">
+
+<link rel="canonical" href="https://aarontalk.com/2019/11/05/leaflet-side-by-side-demo/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>Vue中使用leaflet-side-by-side插件作拉帘对比 | AaronTalk</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-117777392-3"></script>
+    <script>
+      var host = window.location.hostname;
+      if (host !== "localhost" || !true) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-117777392-3');
+      }
+    </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">AaronTalk</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">Aaron's Blog</p>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://aarontalk.com/2019/11/05/leaflet-side-by-side-demo/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Aaron Liu">
+      <meta itemprop="description" content="关注科技，关注生活。<br> 以干净体面的方式实现各项自由。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="AaronTalk">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Vue中使用leaflet-side-by-side插件作拉帘对比
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2019-11-05 18:35:47 / 修改时间：20:38:27" itemprop="dateCreated datePublished" datetime="2019-11-05T18:35:47+08:00">2019-11-05</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/学习笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">学习笔记</span>
+                  </a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>3.4k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>3 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>在上一篇<a href="https://aarontalk.com/2019/11/04/LeafletWithVue/">Vue中使用Leaflet加载地图</a> 中我们已经完成了地图的创建和tileLayer的加载，也给出了加载Open Street Map开源地图的Leaflet example，这里紧接上文，咱们来学习一下Leaflet中一个非常实用的插件——Leaflet-side-by-side。</p>
+<a id="more"></a>
+
+<p>这个插件是干嘛的呢，单看名字应该也能猜个差不多，先看看Leafletjs官网给出的简介吧：</p>
+<blockquote>
+<p> A Leaflet control to add a split screen to compare two map overlays.</p>
+</blockquote>
+<p>很明显，这是一个分屏控件，能够把地图一分为二，对比左右两边的图层。如果一时想象不出它是什么样的也没关系，这里有个插件作者给出的 <a href="http://lab.digital-democracy.org/leaflet-side-by-side/" target="_blank" rel="noopener">Demo</a> 可以让你一目了然。作者给出的使用方法除了引入必要的js文件外，总共分三步：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> myLayer1 = L.tileLayer(...).addTo(map);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> myLayer2 = L.tileLayer(...).addTo(map)</span><br><span class="line"></span><br><span class="line">L.control.sideBySide(myLayer1, myLayer2).addTo(map);</span><br></pre></td></tr></table></figure>
+
+<p>这样就可以啦？我一开始也是将信将疑的。但是看了上面Demo的源码之后发现，嘿！还真是！但是在vue中实际使用的时候还是碰到点小坑的，当然坑不是在它这，而是在上一篇中曾提到的map.js中创建瓦片图层的部分：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//创建瓦片图层</span></span><br><span class="line"><span class="keyword">const</span> createTileLayer = <span class="function">(<span class="params">map, url, options</span>) =&gt;</span> &#123; </span><br><span class="line">    <span class="keyword">let</span> tileLayer = L.tileLayer(url, options)</span><br><span class="line">    tileLayer.addTo(map)</span><br><span class="line">    <span class="keyword">return</span> tileLayer</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>原来Google出来的教程中给的是这样的：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//创建瓦片图层</span></span><br><span class="line"><span class="keyword">const</span> createTileLayer = <span class="keyword">async</span> (map, url, options) =&gt; &#123; </span><br><span class="line">    <span class="keyword">let</span> tileLayer = L.tileLayer(url, options)</span><br><span class="line">    tileLayer.addTo(map)</span><br><span class="line">    <span class="keyword">return</span> tileLayer</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>差别就在于async这里。因为leaflet中创建图层的方法是异步方法，所以原教程作者使用了async来处理异步的问题，但实际尝试发现，不仅没啥区别，而且造成使用Leaflet-side-by-side插件时，左右两边的图始终是重叠加载的（即上面一个图层，下面一个图层），死活实现不了分窗口拉帘对比的效果。查了半天想起来可能是这里的问题，果然把async直接去掉后瞬间舒适了……</p>
+<p>好，废话再不多说，Leaflet-side-by-side插件demo开搞。</p>
+<p>首先，咱们直接把上一篇中的Code拿过来继续使用。既然是Leaflet的插件，那么上一篇也说过了，最好是把地图相关的交互都放到一个地方，这样便于后期代码的维护，有点强迫症的也会觉得更舒适一些。所以咱们自然是继续在map.js中添加相应的函数声明，添加完后utils/map.js应该像下面这样：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">'leaflet/dist/leaflet.css'</span></span><br><span class="line"><span class="keyword">import</span> L <span class="keyword">from</span> <span class="string">'leaflet'</span></span><br><span class="line"><span class="keyword">import</span> <span class="string">'leaflet-side-by-side'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//创建地图</span></span><br><span class="line"><span class="keyword">const</span> createMap = <span class="function">(<span class="params">divId, options</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> map = L.map(divId, options)</span><br><span class="line">    <span class="keyword">return</span> map</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//创建瓦片图层</span></span><br><span class="line"><span class="keyword">const</span> createTileLayer = <span class="function">(<span class="params">map, url, options</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> tileLayer = L.tileLayer(url, options)</span><br><span class="line">    tileLayer.addTo(map)</span><br><span class="line">    <span class="keyword">return</span> tileLayer</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//这里就是为Leaflet-side-by-side新添加的创建compare-side-by-side函数</span></span><br><span class="line"><span class="comment">//注意要在前面先import leaflet-side-by-side</span></span><br><span class="line"><span class="keyword">const</span> compareSBS = <span class="function">(<span class="params">mapLayer1, mapLayer2, map, options</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> compareLayer = L.control.sideBySide(mapLayer1, mapLayer2, options)</span><br><span class="line">    compareLayer.addTo(map)</span><br><span class="line">    <span class="keyword">return</span> compareLayer</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">    createMap,</span><br><span class="line">    createTileLayer,</span><br><span class="line">    compareSBS</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后可以在Map.vue中使用compareSBS来做分窗口拉帘对比啦。更改后的Map.vue长这样子：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"map-container"</span> id=<span class="string">"map-container"</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">&lt;<span class="regexp">/template&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">&lt;script&gt;</span></span><br><span class="line"><span class="regexp">export default &#123;</span></span><br><span class="line"><span class="regexp">  name: "mapView",</span></span><br><span class="line"><span class="regexp">  components: &#123;&#125;,</span></span><br><span class="line"><span class="regexp">  data() &#123;</span></span><br><span class="line"><span class="regexp">    return &#123;</span></span><br><span class="line"><span class="regexp">      map: null,</span></span><br><span class="line"><span class="regexp">      leftLayer: null,</span></span><br><span class="line"><span class="regexp">      rightLayer: null,</span></span><br><span class="line"><span class="regexp">      mapBoxURL: </span></span><br><span class="line"><span class="regexp">        /</span><span class="regexp">/为了对比我这里用了mapbox的地图服务，需要相应的accesstoken，</span></span><br><span class="line"><span class="regexp">        /</span><span class="regexp">/可以去申请一下，对于开发的需求来说几乎等于免费。当然你直接用同一个图来尝试也没问题。</span></span><br><span class="line"><span class="regexp">        "https:/</span><span class="regexp">/api.mapbox.com/</span>styles/v1/aaron-mapbox/ck2e1s63x0lhh1clj4nje8a14/tiles/<span class="number">256</span>/&#123;z&#125;/&#123;x&#125;/&#123;y&#125;?access_token=yourtoken<span class="string">", </span></span><br><span class="line"><span class="string">      OSMUrl: "</span>https:<span class="comment">//&#123;s&#125;.tile.openstreetmap.org/&#123;z&#125;/&#123;x&#125;/&#123;y&#125;.png"</span></span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;,</span><br><span class="line">  mounted() &#123;</span><br><span class="line">      <span class="comment">//创建地图</span></span><br><span class="line">    <span class="keyword">this</span>.map = <span class="keyword">this</span>.$utils.map.createMap(<span class="string">"map-container"</span>);</span><br><span class="line">    <span class="comment">// 设施地图视图 中心位置，随便选，可以直接搜你感兴趣的位置经纬度即可，13代表默认瓦片图层等级</span></span><br><span class="line">    <span class="keyword">this</span>.map.setView([<span class="number">34.03</span>, <span class="number">-118.15</span>], <span class="number">13</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 加载 open street map和mapbox 图层服务</span></span><br><span class="line">    <span class="keyword">this</span>.leftLayer = <span class="keyword">this</span>.$utils.map.createTileLayer(<span class="keyword">this</span>.map, <span class="keyword">this</span>.OSMUrl, &#123;<span class="attr">maxZoom</span>: <span class="number">19</span>&#125;);</span><br><span class="line">    <span class="keyword">this</span>.rightLayer = <span class="keyword">this</span>.$utils.map.createTileLayer(</span><br><span class="line">      <span class="keyword">this</span>.map,</span><br><span class="line">      <span class="keyword">this</span>.mapBoxURL,</span><br><span class="line">      &#123;<span class="attr">maxZoom</span>: <span class="number">19</span>&#125;</span><br><span class="line">    );</span><br><span class="line"></span><br><span class="line">    <span class="comment">// side by side 对比</span></span><br><span class="line">    <span class="keyword">this</span>.$utils.map.compareSBS(<span class="keyword">this</span>.leftLayer, <span class="keyword">this</span>.rightLayer, <span class="keyword">this</span>.map, &#123;&#125;);</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line">&lt;<span class="regexp">/script&gt;</span></span><br><span class="line"><span class="regexp">&lt;style lang="less"&gt;</span></span><br><span class="line"><span class="regexp">.map-container &#123;</span></span><br><span class="line"><span class="regexp">  position: absolute;</span></span><br><span class="line"><span class="regexp">  left: 0;</span></span><br><span class="line"><span class="regexp">  top: 100px;</span></span><br><span class="line"><span class="regexp">  width: 100%;</span></span><br><span class="line"><span class="regexp">  height: 100%;</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br><span class="line"><span class="regexp">&lt;/</span>style&gt;</span><br></pre></td></tr></table></figure>
+
+<p>可以看到，跟插件作者给出的方法类似，也是分别加载两个图层，然后把图层丢到L.control控件里就完事了。方便、高效，实际使用也算比较美观。</p>
+<p><img src="/2019/11/05/leaflet-side-by-side-demo/image-20191105203115464.png" alt="image-20191105203115464"></p>
+<p>好啦，以上就是今天的全部内容，有不清楚的或者遇到相关问题的，欢迎评论或私信联系，大家相互学习。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/vue/" rel="tag"># vue</a>
+              <a href="/tags/leaflet/" rel="tag"># leaflet</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+                <a href="/2019/11/04/LeafletWithVue/" rel="next" title="Vue 中使用 Leaflet 加载地图">
+                  <i class="fa fa-chevron-left"></i> Vue 中使用 Leaflet 加载地图
+                </a>
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+            </div>
+          </div>
+      </footer>
+    
+  </article>
+  <div>
+    
+    <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">------ 本文结束 ------</div>
+    
+</div>
+    
+  </div>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    <div class="comments" id="gitalk-container"></div>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <img class="site-author-image" itemprop="image" alt="Aaron Liu"
+    src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Aaron Liu</p>
+  <div class="site-description" itemprop="description">关注科技，关注生活。<br> 以干净体面的方式实现各项自由。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">4</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="feed-link motion-element">
+    <a href="/atom.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Aaronliu2016" title="GitHub &rarr; https://github.com/Aaronliu2016" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="//weibo.com/aaronliutalk" title="Weibo &rarr; //weibo.com/aaronliutalk"><i class="fa fa-fw fa-weibo"></i>Weibo</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Aaron Liu</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    <span title="站点总字数">21k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">19 分钟</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://pisces.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.5.0
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/pangu@4/dist/browser/pangu.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/pisces.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+  <script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID: '408d08a7325f25975e09',
+      clientSecret: 'ff58f7696cf00d8fd948cdd29db6a8459f03bf9b',
+      repo: 'aarontalkcomments',
+      owner: 'Aaronliu2016',
+      admin: ['Aaronliu2016'],
+      id: 'c24830e26c8854f643ca7506a1dd0a96',
+        language: '',
+      distractionFreeMode: 'true'
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+</script>
+
+</body>
+</html>

@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://aarontalk.com/"/>
-  <updated>2019-11-04T03:28:41.159Z</updated>
+  <updated>2019-11-05T12:38:27.776Z</updated>
   <id>https://aarontalk.com/</id>
   
   <author>
@@ -17,11 +17,34 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>Vue中使用leaflet-side-by-side插件作拉帘对比</title>
+    <link href="https://aarontalk.com/2019/11/05/leaflet-side-by-side-demo/"/>
+    <id>https://aarontalk.com/2019/11/05/leaflet-side-by-side-demo/</id>
+    <published>2019-11-05T10:35:47.000Z</published>
+    <updated>2019-11-05T12:38:27.776Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;在上一篇&lt;a href=&quot;https://aarontalk.com/2019/11/04/LeafletWithVue/&quot;&gt;Vue中使用Leaflet加载地图&lt;/a&gt; 中我们已经完成了地图的创建和tileLayer的加载，也给出了加载Open Street Map开源地图的Leaflet example，这里紧接上文，咱们来学习一下Leaflet中一个非常实用的插件——Leaflet-side-by-side。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="学习笔记" scheme="https://aarontalk.com/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+    
+      <category term="vue" scheme="https://aarontalk.com/tags/vue/"/>
+    
+      <category term="leaflet" scheme="https://aarontalk.com/tags/leaflet/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Vue 中使用 Leaflet 加载地图</title>
     <link href="https://aarontalk.com/2019/11/04/LeafletWithVue/"/>
     <id>https://aarontalk.com/2019/11/04/LeafletWithVue/</id>
     <published>2019-11-04T01:49:55.000Z</published>
-    <updated>2019-11-04T03:28:41.159Z</updated>
+    <updated>2019-11-05T12:40:47.465Z</updated>
     
     <summary type="html">
     
