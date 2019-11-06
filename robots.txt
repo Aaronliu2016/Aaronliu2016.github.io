@@ -3,6 +3,7 @@ Allow: /
 Allow: /archives/
 Allow: /tags/
 Allow: /categories/
+Allow: /about-me/
 
 Disallow: /vendors/
 Disallow: /js/
@@ -12,3 +13,4 @@ Disallow: /vendors/
 Disallow: /fancybox/
 
 Sitemap: http://aarontalk.com/sitemap.xml
+Sitemap: http://aarontalk.com/baidusitemap.xml
